@@ -8,3 +8,11 @@ html {
     padding: 0;
     box-sizing: inherit;
 }
+
+body {
+    margin: 1rem;
+}
+
+.logo {
+    height: 95px;
+}
