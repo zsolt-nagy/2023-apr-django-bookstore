@@ -20,5 +20,16 @@
     {% endif %}
 
 
-        <p>There {{ count|pluralize:"is,are" }} {{ count }} book{{ count|pluralize }} in the store.</p>
+        <p>
+            There {{ count|pluralize:"is,are" }} {{ count }} book{{ count|pluralize }} in the store:
+            <ul>
+                {% for book in books %}
+                <li>
+                    {{ book.author }}: {{ book.title }}
+                </li>
+                {% endfor %}
+            </ul>
+
+        </p>
+
 {% endblock %}

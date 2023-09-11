@@ -12,9 +12,11 @@ def index(request):
 
 
 def store(request):
-   count = Book.objects.all().count()
+   books = Book.objects.all()
+   count = books.count()
    context = {
        'count': count,
+       'books': books,
        'page': 'Welcome to Mystery Books',
        'menu_item': 'store'
    }
