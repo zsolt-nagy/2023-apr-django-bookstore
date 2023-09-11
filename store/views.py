@@ -22,4 +22,11 @@ def store(request):
    }
    return render(request, "store/store.html", context)
 
-
+def display_book(request, book_id):
+    book = Book.objects.get(id=book_id)
+    context = {
+        'page': book.title, 
+        'menu_item': book.title,
+        'book': book
+    }
+    return render(request, 'store/template.html', context) # TODO: write new template
