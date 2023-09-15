@@ -3,7 +3,12 @@
 {% block content %}
 
     {% if book != None %}
-        <p><strong>Title:</strong> {{ book.title }} </p>
+        <p>
+            <strong>Title:</strong> 
+            {{ book.title }} 
+            <a href="#" class="btn btn-success" title="Edit">✎</a>
+            <a href="#" class="btn btn-danger" title="Delete"><strong>╳</strong></a>
+        </p>
         <p><strong>Author:</strong> {{ book.author }}</p>
         <p><strong>Description:</strong> {{ book.description }}</p>
         <p><strong>Date of Publication:</strong> {{ book.publish_date }}</p>
