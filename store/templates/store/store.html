@@ -3,6 +3,10 @@
 {% block content %}
         <p>
             There {{ count|pluralize:"is,are" }} {{ count }} book{{ count|pluralize }} in the store:
+            
+            <p>
+                <a href="#" class="btn btn-success">New Book</a>
+            </p>
             <ul>
                 {% for book in books %}
                 <li>
@@ -10,7 +14,6 @@
                 </li>
                 {% endfor %}
             </ul>
-
         </p>
 
 {% endblock %}
