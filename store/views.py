@@ -23,10 +23,15 @@ def store(request):
    return render(request, "store/store.html", context)
 
 def display_book(request, book_id):
-    book = Book.objects.get(id=book_id)
+    try:
+        book = Book.objects.get(id=book_id)
+        title = book.title
+    except:
+        book = None
+        title = 'Book was not found'
     context = {
-        'page': book.title, 
-        'menu_item': book.title,
+        'page': title, 
+        'menu_item': title,
         'book': book
     }
-    return render(request, 'store/template.html', context) # TODO: write new template
+    return render(request, 'store/book.html', context) # TODO: write new template

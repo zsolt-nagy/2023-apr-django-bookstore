@@ -1,31 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    {% if request.user.is_authenticated %}
-        <h4>
-            Welcome, 
-            {% if request.user.first_name %} 
-                {{ request.user.first_name }}
-            {% else %}
-                {{ request.user.username}}
-            {% endif %}!
-            <a href="{% url 'admin:index' %}">Logout</a>
-        </h4>
-    {% else %}
-        <h4>
-            Welcome, mysterious person! 
-            Would you like to <a href="{% url 'index' %}">Login</a>?
-        </h4>
-    {% endif %}
-
-
         <p>
             There {{ count|pluralize:"is,are" }} {{ count }} book{{ count|pluralize }} in the store:
             <ul>
                 {% for book in books %}
                 <li>
-                    {{ book.author }}: {{ book.title }}
+                    <a href="{% url 'display_book' book.id %}">{{ book.author }}: {{ book.title }}</a>
                 </li>
                 {% endfor %}
             </ul>
