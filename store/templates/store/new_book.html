@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if create_successful %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        The book has been created.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>    
+    {% endif %}
+    {% if post_error %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Error creating the book.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>       
+    {% endif %}
+
+
+    <form method="POST" action="{% url 'new_book' %}">
+        {% csrf_token %}
+        <div class="mb-3 col-10 offset-1">
+            <label for="title-field" class="form-label">Title</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="title-field" 
+                name="title" 
+                required />
+        </div>
+        <div class="mb-3 col-10 offset-1">
+            <label for="author-field" class="form-label">Author</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="author-field" 
+                name="author"
+                required />
+        </div>
+        <div class="mb-3 col-10 offset-1">
+            <label for="description-field" class="form-label">Description</label>
+            <textarea 
+                class="form-control" 
+                id="description-field" 
+                name="description"
+                required></textarea>
+        </div>       
+        <div class="mb-3 col-10 offset-1">
+            <label for="date-of-pub-field" class="form-label">Date of Publication</label>
+            <input 
+                type="date" 
+                class="form-control" 
+                id="date-of-pub-field" 
+                name="date_of_pub"
+                required />           
+        </div>   
+        <div class="mb-3 col-10 offset-1">
+            <label for="price-field" class="form-label">Price</label>
+            <input 
+                type="number" 
+                class="form-control" 
+                id="price-field" 
+                name="price"
+                min="0"
+                max="9999"
+                step="0.01"
+                required />           
+        </div> 
+        <div class="mb-3 col-10 offset-1">
+            <label for="stock-field" class="stock-label">Stock</label>
+            <input 
+                type="number" 
+                class="form-control" 
+                id="stock-field" 
+                name="stock"
+                min="0"
+                required />           
+        </div>   
+
+        <button type="submit" class="btn btn-success">Add Book</button>
+    </form>
+{% endblock %}
