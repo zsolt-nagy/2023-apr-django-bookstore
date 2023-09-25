@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if delete_successful %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        The book has been deleted.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>    
+    {% endif %}
+    {% if delete_error %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Error deleting the book.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>       
+    {% endif %}
+
         <p>
             There {{ count|pluralize:"is,are" }} {{ count }} book{{ count|pluralize }} in the store:
             

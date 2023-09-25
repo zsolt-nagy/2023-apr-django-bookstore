@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Book
 
 
@@ -37,6 +37,25 @@ def display_book(request, book_id):
         'book_id': book_id,
     }
     return render(request, 'store/book.html', context) 
+
+
+def delete_book(request, book_id):  
+    context = {
+        'menu_item': 'store',
+    }    
+    try:
+        book = Book.objects.get(id=book_id)
+        book.delete()
+        context['page'] = 'Welcome to Mystery Books'
+        context['delete_successful'] = True
+    except:
+        context['page'] = 'Error deleting book.',
+        context['delete_error'] = True
+    books = Book.objects.all()       
+    context['books'] = books
+    context['count'] = books.count()
+
+    return render(request, "store/store.html", context)        
 
 
 def edit_book(request, book_id):
