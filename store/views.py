@@ -32,10 +32,45 @@ def display_book(request, book_id):
         title = 'Book was not found'
     context = {
         'page': title, 
-        'menu_item': title,
-        'book': book
+        'menu_item': 'store',
+        'book': book,
+        'book_id': book_id,
     }
-    return render(request, 'store/book.html', context) # TODO: write new template
+    return render(request, 'store/book.html', context) 
+
+
+def edit_book(request, book_id):
+    try:
+        book = Book.objects.get(id=book_id)
+        title = book.title
+    except:
+        book = None
+        title = 'Book was not found'
+    context = {
+        'page': title,
+        'menu_item': 'store',
+        'book': book,
+        'book_id': book_id,
+        'action': 'edit_book',
+        'submit_button_text': 'Update Book',
+        'post_error': False
+    }
+    if request.method == 'POST':
+        try:
+            book.title = request.POST.get('title')
+            book.author = request.POST.get('author')
+            book.description = request.POST.get('description')
+            book.publish_date = request.POST.get('date_of_pub')
+            book.price = request.POST.get('price')
+            book.stock = request.POST.get('stock')
+            book.save()
+            context['update_successful'] = True
+            return render(request, 'store/book.html', context) 
+        except:
+            context['post_error'] = True
+            return render(request, 'store/book_form.html', context)
+    else:
+        return render(request, 'store/book_form.html', context)
 
 
 def new_book(request):
@@ -44,6 +79,8 @@ def new_book(request):
         'menu_item': 'store',
         'create_successful': False,
         'post_error': False,
+        'action': 'new_book',
+        'submit_button_text': 'Add Book',
     }
     if request.method == 'POST':
         try:
@@ -59,4 +96,6 @@ def new_book(request):
             context['create_successful'] = True
         except:
             context['post_error'] = True
-    return render(request, 'store/new_book.html', context)
+        return render(request, 'store/book_form.html', context)
+    else:
+        return render(request, 'store/book_form.html', context)

@@ -15,7 +15,11 @@
     {% endif %}
 
 
-    <form method="POST" action="{% url 'new_book' %}">
+    {% if book_id >= 0 %}
+    <form method="POST" action="{% url action book_id %}">
+    {% else %}
+    <form method="POST" action="{% url action %}">
+    {% endif %}
         {% csrf_token %}
         <div class="mb-3 col-10 offset-1">
             <label for="title-field" class="form-label">Title</label>
@@ -24,6 +28,7 @@
                 class="form-control" 
                 id="title-field" 
                 name="title" 
+                value="{{ book.title }}"
                 required />
         </div>
         <div class="mb-3 col-10 offset-1">
@@ -33,6 +38,7 @@
                 class="form-control" 
                 id="author-field" 
                 name="author"
+                value="{{ book.author }}"
                 required />
         </div>
         <div class="mb-3 col-10 offset-1">
@@ -41,7 +47,7 @@
                 class="form-control" 
                 id="description-field" 
                 name="description"
-                required></textarea>
+                required>{{ book.description }}</textarea>
         </div>       
         <div class="mb-3 col-10 offset-1">
             <label for="date-of-pub-field" class="form-label">Date of Publication</label>
@@ -50,6 +56,7 @@
                 class="form-control" 
                 id="date-of-pub-field" 
                 name="date_of_pub"
+                value="{{ book.publish_date|date:'Y-m-d' }}"
                 required />           
         </div>   
         <div class="mb-3 col-10 offset-1">
@@ -62,6 +69,7 @@
                 min="0"
                 max="9999"
                 step="0.01"
+                value="{{ book.price }}"
                 required />           
         </div> 
         <div class="mb-3 col-10 offset-1">
@@ -72,9 +80,10 @@
                 id="stock-field" 
                 name="stock"
                 min="0"
+                value="{{ book.stock }}"
                 required />           
         </div>   
 
-        <button type="submit" class="btn btn-success">Add Book</button>
+        <button type="submit" class="btn btn-success">{{ submit_button_text }}</button>
     </form>
 {% endblock %}
