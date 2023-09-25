@@ -49,7 +49,7 @@ def delete_book(request, book_id):
         context['page'] = 'Welcome to Mystery Books'
         context['delete_successful'] = True
     except:
-        context['page'] = 'Error deleting book.',
+        context['page'] = 'Error deleting book.'
         context['delete_error'] = True
     books = Book.objects.all()       
     context['books'] = books
