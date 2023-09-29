@@ -56,7 +56,7 @@ def delete_book(request, book_id):
     context['count'] = books.count()
 
     return render(request, "store/store.html", context)        
-
+ 
 
 def edit_book(request, book_id):
     try:
